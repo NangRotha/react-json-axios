@@ -6,7 +6,7 @@ const HomePage = () => {
 
   // Load products from public/products.json
   useEffect(() => {
-    fetch('/products.json')
+    fetch('/http://localhost:3000/products')
       .then(res => res.json())
       .then(data => setProducts(data.products))
   }, [])
@@ -16,7 +16,7 @@ const HomePage = () => {
       <h1 className="text-center mb-4">Welcome to Home Page</h1>
 
       {/* Add New Product Button */}
-      <div className="mb-3 text-center">
+      <div className="mb-3">
         <Link to="/add-product" className="btn btn-primary">
           Go to Add Product Page
         </Link>
