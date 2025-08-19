@@ -1,34 +1,40 @@
 {
-    "products":[
-        {
-            "id":1,
-            "name":"Apple iPhone 13",
-            "price":799.99,
-            "category":"Smartphones"
-        },
-        {
-            "id":2,
-            "name":"Samsung Galaxy S21",
-            "price":699.99,
-            "category":"Smartphones"
-        },
-        {
-            "id":3,
-            "name":"Sony WH-1000XM4",
-            "price":349.99,
-            "category":"Headphones"
-        },
-        {
-            "id":4,
-            "name":"Dell XPS 13",
-            "price":999.99,
-            "category":"Laptops"
-        },
-        {
-            "id":5,
-            "name":"Apple MacBook Air M1",
-            "price":999.00,
-            "category":"Laptops"
-        }
-    ]
+  "products": [
+    {
+      "id": "1",
+      "name": "Apple iPhone 13",
+      "price": 799.99,
+      "category": "Smartphones"
+    },
+    {
+      "id": "2",
+      "name": "Samsung Galaxy S21",
+      "price": 699.99,
+      "category": "Smartphones"
+    },
+    {
+      "id": "3",
+      "name": "Sony WH-1000XM4",
+      "price": 349.99,
+      "category": "Headphones"
+    },
+    {
+      "id": "4",
+      "name": "Dell XPS 13",
+      "price": 999.99,
+      "category": "Laptops"
+    },
+    {
+      "id": "5",
+      "name": "Apple MacBook Air M1",
+      "price": 999,
+      "category": "Laptops"
+    },
+    {
+      "id": "eb8f",
+      "name": "Hello",
+      "price": 1000,
+      "category": "AI"
+    }
+  ]
 }

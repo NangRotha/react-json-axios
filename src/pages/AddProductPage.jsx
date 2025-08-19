@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 
 const AddProductPage = () => {
   const [products, setProducts] = useState([])
@@ -11,11 +12,16 @@ const AddProductPage = () => {
 
   // Load initial products (from local JSON or API)
   useEffect(() => {
-    // Simulating fetching from products.json
-    fetch('/products.json')
-      .then(res => res.json())
-      .then(data => setProducts(data.products))
-  }, [])
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/products');
+        setProducts(response.data);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
+    };
+    fetchProducts();
+  }, []);
 
   // Handle form changes
   const handleChange = (e) => {
@@ -27,15 +33,24 @@ const AddProductPage = () => {
   }
 
   // Handle form submit
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     const newProduct = {
-      id: products.length + 1,
       ...formData,
       price: parseFloat(formData.price)
     }
-    setProducts(prev => [...prev, newProduct])
-    setFormData({ name: '', price: '', category: '' })
+
+    try {
+      const response = await axios.post('http://localhost:5000/products', newProduct);
+      console.log('Product added:', response.data);
+      // Clear form
+      setFormData({ name: '', price: '', category: '' });
+      // Optionally, refresh the product list or navigate away
+      // For simplicity, we'll just clear the form and assume success
+      window.location.reload(); // Reload the page to show updated list
+    } catch (error) {
+      console.error('Error adding product:', error);
+    }
   }
 
   return (

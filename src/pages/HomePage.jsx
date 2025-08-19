@@ -1,15 +1,31 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 
 const HomePage = () => {
   const [products, setProducts] = useState([])
 
   // Load products from public/products.json
   useEffect(() => {
-    fetch('/http://localhost:3000/products')
-      .then(res => res.json())
-      .then(data => setProducts(data.products))
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/products');
+        setProducts(response.data);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
+    };
+    fetchProducts();
   }, [])
+
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`http://localhost:5000/products/${id}`);
+      setProducts(products.filter(product => product.id !== id));
+    } catch (error) {
+      console.error('Error deleting product:', error);
+    }
+  };
 
   return (
     <div className="container py-4">
@@ -35,6 +51,7 @@ const HomePage = () => {
                 <th>Name</th>
                 <th>Price ($)</th>
                 <th>Category</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -45,12 +62,26 @@ const HomePage = () => {
                     <td>{prod.name}</td>
                     <td>{prod.price}</td>
                     <td>{prod.category}</td>
+                    <td>
+                      <Link
+                        to={`/edit-product/${prod.id}`}
+                        className="btn btn-primary btn-sm me-2"
+                      >
+                        Edit
+                      </Link>
+                      <button
+                        className="btn btn-danger btn-sm"
+                        onClick={() => handleDelete(prod.id)}
+                      >
+                        Delete
+                      </button>
+                    </td>
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td colSpan="4" className="text-center p-3">
-                    Loading products...
+                  <td colSpan="5" className="text-center p-3">
+                    No products available.
                   </td>
                 </tr>
               )}
